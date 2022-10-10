@@ -78,6 +78,8 @@ const state = {
   users: []
 }
 
+const latency = {}
+
 io.on('connection', (socket) => {
   console.log('a user connected');
   state.connections += 1
@@ -119,6 +121,20 @@ io.on('connection', (socket) => {
     }
     
     io.emit('state', state)
+  })
+  
+  socket.on('pong', ({userId, timestamp, index})=>{
+    latency[userId] = latency[userId] || []
+    latency[userId].push(Date.now()-timestamp)
+    if(index < 10){
+      socket.emit('ping', {index: index+1, timestamp: Date.now()})
+    } else {
+      console.log(latency)
+    }
+  })
+
+  socket.on('checkLatency', () => {
+    socket.emit('ping', {index: 0, timestamp: Date.now()})
   })
 
 });
