@@ -139,6 +139,9 @@ io.on('connection', (socket) => {
     socket.emit('ping', {index: 0, timestamp: Date.now()})
   })
 
+  socket.on('playSound', (data) => {
+    io.emit('playSound', data)    
+  })
 });
 
 server.listen(process.env.PORT, () => {
