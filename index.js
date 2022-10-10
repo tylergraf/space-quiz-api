@@ -129,7 +129,9 @@ io.on('connection', (socket) => {
     if(index < 10){
       socket.emit('ping', {index: index+1, timestamp: Date.now()})
     } else {
-      console.log(latency)
+      const sum = latency[userId].reduce((a, b) => a + b, 0);
+      const avg = (sum / latency[userId].length) || 0;
+      socket.emit('latency', avg)
     }
   })
 
