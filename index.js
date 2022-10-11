@@ -142,7 +142,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('playSound', (data) => {
-    io.emit('playSound', data)    
+    socket.broadcast.emit('playSound', data)    
   })
   socket.on('navigate', (path) => {
     socket.broadcast.emit('navigate', path)    
