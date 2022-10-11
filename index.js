@@ -11,12 +11,14 @@ const io = new Server(server, {
 
 const questions = [
   {
+    img: 'https://cdn.mos.cms.futurecdn.net/zLQKXnQPuX3PDV8qAQjVxN-1920-80.jpg.webp',
+    width: '60%',
     value: 'How long does it take for light to travel from Sun to Earth?',
     possibleAnswers: ['1 min', '2 min', '8 min', '1 hour'],
     correctAnswer: 2
   }, 
   {
-    value: 'What is the furthest known plant from the sun?',
+    value: 'What is the furthest known planet from the sun?',
     possibleAnswers: ['Pluto', 'Neptune', 'Jupiter', 'Mars'],
     correctAnswer: 1
   },
@@ -28,14 +30,14 @@ const questions = [
     correctAnswer: 1
   },
   {
-    width: '50%',
+    width: '40%',
     img: "https://media.newyorker.com/photos/590966ee1c7a8e33fb38d6cc/master/w_2560%2Cc_limit/Nissan-Universe-Shouts.jpg",
     value: 'What is the most abundant element in the universe?',
     possibleAnswers: ['Iron', 'Helium', 'Oxygen', 'Hydrogen'],
     correctAnswer: 3
   },
   {
-    width: '75%',
+    width: '65%',
     img: 'https://solarsystem.nasa.gov/system/resources/detail_files/696_dscovrepicmoontransitfull.gif',
     value: 'What is the most abundant element on Earth?',
     possibleAnswers: ['Iron', 'Silicon', 'Oxygen', 'Hydrogen'],
@@ -141,6 +143,9 @@ io.on('connection', (socket) => {
 
   socket.on('playSound', (data) => {
     io.emit('playSound', data)    
+  })
+  socket.on('navigate', (path) => {
+    socket.broadcast.emit('navigate', path)    
   })
 });
 
